@@ -1,4 +1,4 @@
-const BASE_URL = 'https://35.219.112.81:3000';
+const BASE_URL = 'http://35.219.112.81:3000';
 
 const ENDPOINT = {
   predict: `${BASE_URL}/predict`,
