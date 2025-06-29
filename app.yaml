@@ -17,6 +17,7 @@ handlers:
 - url: /.*
   static_files: index.html
   upload: index.html
+  secure: never
  
 - url: /(.*)
   script: auto
