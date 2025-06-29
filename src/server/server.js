@@ -15,6 +15,7 @@ const init = async () => {
       maxBytes: 1000000,
       output: 'stream',
       parse: true,
+      multipart: true,
       allow: 'multipart/form-data'
     }
   }
