@@ -13,7 +13,7 @@ async function predictImage(imageBuffer) {
     const prediction = model.predict(imageTensor);
     const score = await prediction.data();
     
-    const cancerProbability = score[];
+    const cancerProbability = score[1];
 
     if (cancerProbability > 0.5) {
         return 'Cancer';
