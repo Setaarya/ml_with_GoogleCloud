@@ -9,7 +9,7 @@ async function predictImage(imageBuffer) {
         .expandDims()
         .toFloat();
 
-    const prediction = model.predict(tensor);
+    const prediction = model.predict(imageTensor);
     const score = await prediction.data();
     const confidenceScore = Math.max(...score) * 100;
  
