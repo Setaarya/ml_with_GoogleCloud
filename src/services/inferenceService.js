@@ -4,17 +4,22 @@ const { getModel } = require('./loadModel');
 async function predictImage(imageBuffer) {
     const model = getModel();
 
-    const imageTensor = tf.node.decodeImage(imageBuffer)
+    const imageTensor = tf.node.decodeImage(imageBuffer, 3)
         .resizeNearestNeighbor([224, 224])
         .expandDims()
         .toFloat()
         .div(tf.scalar(255.0));
 
     const prediction = model.predict(imageTensor);
-    const label = await prediction.data();
-    const score = Math.max(...label) * 100;
+    const score = await prediction.data();
+    
+    const cancerProbability = score[];
 
-    return score <= 50 ? 'Non-cancer' : 'Cancer'; 
+    if (cancerProbability > 0.5) {
+        return 'Cancer';
+    } else {
+        return 'Non-cancer';
+    }
 };
 
 module.exports = { predictImage };
