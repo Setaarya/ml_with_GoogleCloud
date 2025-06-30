@@ -12,14 +12,9 @@ async function predictImage(imageBuffer) {
 
     const prediction = model.predict(imageTensor);
     const score = await prediction.data();
-    
-    const cancerProbability = score[1];
-
-    if (cancerProbability > 0.5) {
-        return 'Cancer';
-    } else {
-        return 'Non-cancer';
-    }
+    const confidenceScore = Math.max(...score) * 100;
+ 
+    return confidenceScore <= 50 ? 'Non-cancer' : 'Cancer'; 
 };
 
 module.exports = { predictImage };
