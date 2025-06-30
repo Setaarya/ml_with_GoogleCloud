@@ -97,20 +97,31 @@ function previewFile(file) {
 
 // Send image to server
 async function uploadFile(formData) {
-  try {
-    hideElement(waitingToPredicting);
-    hideElement(result);
-    showElement(loadingPredict);
+  // Sembunyikan semua elemen hasil/error dari prediksi sebelumnya
+  hideElement(waitingToPredicting);
+  hideElement(result);
+  hideElement(predictionError);
+  predictionError.textContent = ''; // Kosongkan teks error sebelumnya
 
+  // Tampilkan loading spinner
+  showElement(loadingPredict);
+
+  try {
+    // Panggil API. Jika API gagal, ia akan 'throw error' dan langsung loncat ke blok catch.
     const response = await PredictAPI.predict(formData);
 
+    // Baris ini hanya akan berjalan jika API sukses
     showPredictionResult(response);
     showElement(result);
   } catch (error) {
-    console.error(error);
+    // Tangkap error yang dilempar dari api.js
+    console.error('Prediksi Gagal:', error.message);
 
+    // Tampilkan pesan error dari backend ke elemen 'predictionError' di UI
     predictionError.textContent = error.message;
+    showElement(predictionError);
   } finally {
+    // Sembunyikan loading spinner, baik saat sukses maupun gagal
     hideElement(loadingPredict);
   }
 }
