@@ -11,9 +11,10 @@ async function predictImage(imageBuffer) {
         .div(tf.scalar(255.0));
 
     const prediction = model.predict(imageTensor);
-    const score = (await prediction.data())[0];
+    const label = await prediction.data();
+    const confidenceScore = Math.max(...label) * 100;
 
-    return score > 0.5 ? 'Cancer' : 'Non-cancer';
+    return score = confidenceScore <= 50 ? 'Non-cancer' : 'Cancer'; 
 };
 
 module.exports = { predictImage };
