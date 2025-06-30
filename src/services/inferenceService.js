@@ -4,11 +4,10 @@ const { getModel } = require('./loadModel');
 async function predictImage(imageBuffer) {
     const model = getModel();
 
-    const tensor = tf.node
-            .decodeJpeg(image)
-            .resizeNearestNeighbor([224, 224])
-            .expandDims()
-            .toFloat()
+    const imageTensor = tf.node.decodeImage(imageBuffer)
+        .resizeNearestNeighbor([224, 224])
+        .expandDims()
+        .toFloat();
 
     const prediction = model.predict(tensor);
     const score = await prediction.data();
