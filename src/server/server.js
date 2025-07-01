@@ -19,7 +19,15 @@ const init = async () => {
         output: 'stream',
         parse: true,
         multipart: true,
-        allow: 'multipart/form-data'
+        allow: 'multipart/form-data',
+        failAction: async (request, h, err) => {
+          // Override default error
+          return h.response({
+            status: 'fail',
+            message: 'Payload content length greater than maximum allowed: 1000000',
+            data: null
+          }).code(413).takeover();
+        }
       }
     }
   });
