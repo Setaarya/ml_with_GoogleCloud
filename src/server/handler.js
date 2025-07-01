@@ -15,7 +15,8 @@ module.exports = {
       if (file._data.length > 1000000) {
         return h.response({
           status: 'fail',
-          message: 'Payload content length greater than maximum allowed: 1000000'
+          message: 'Payload content length greater than maximum allowed: 1000000',
+          data: null
         }).code(413);
       }
 
@@ -43,7 +44,7 @@ module.exports = {
         message: error instanceof InputError
           ? error.message
           : 'Terjadi kesalahan dalam melakukan prediksi'
-      }).code(error instanceof InputError ? 400);
+      }).code(400);
     }
   },
 
