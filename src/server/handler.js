@@ -43,7 +43,7 @@ module.exports = {
         message: error instanceof InputError
           ? error.message
           : 'Terjadi kesalahan dalam melakukan prediksi'
-      }).code(error instanceof InputError ? 400 : 500);
+      }).code(error instanceof InputError ? 400);
     }
   },
 
