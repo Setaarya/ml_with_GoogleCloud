@@ -34,7 +34,7 @@ module.exports = {
         status: 'success',
         message: 'Model is predicted successfully',
         data
-      }).code(200);
+      }).code(201);
 
     } catch (error) {
       console.error(error);
@@ -43,7 +43,7 @@ module.exports = {
         message: error instanceof InputError
           ? error.message
           : 'Terjadi kesalahan dalam melakukan prediksi'
-      }).code(error instanceof InputError ? 400 : 400);
+      }).code(error instanceof InputError ? 400 : 500);
     }
   },
 
